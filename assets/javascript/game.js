@@ -12,14 +12,14 @@
 
     o.wordWork=[];
 
-    o.chances=13;
+    o.chances=0;
 
     o.wins=0;
     document.getElementById("wins").innerHTML=o.wins;
 
     
 
-    function generateWord() {
+    o.generateWord = function() {
       o.incorrectGuesses=[];
       o.emptyUnderscores=[];
       o.chances=13;
@@ -33,76 +33,75 @@
               o.emptyUnderscores.push("_ ");
         }
      
-      console.log(o.emptyUnderscores); 
+      console.log("this is goin to be in your HTML " + o.emptyUnderscores); 
       document.getElementById("blank").innerHTML=o.emptyUnderscores.join(" ");
         
     }  
 
 
-    function thisIsGuess (letter) {
-
-          Array.prototype.multiIndexOf = function (el) { //this returns an array of indexes, where the guessed letter is in
-            //the chosen word
-
-              var idxs = [];
-              for (var i = this.length - 1; i >= 0; i--) {
-                  if (this[i] === el) {
-                      idxs.unshift(i);
-                  }
-              }
-              return idxs;
-          }; //closing array.prototype function
-
-          var p=o.wordWork.multiIndexOf(guess); //p is going to be my array of indexes - if (p[0]>-1) guess is correct 
-          console.log("this is your array of indexes: "+ p);
-
-
-          if (p[0]>-1) { // then I want to change all underscores with the letter
+    o.thisIsGuess =function (guess) {
+          var p=0;
+          var r=0;
           
-                  for (j = p.length - 1; j >= 0; j--) {
-
-                    var k=p[j];
-                    o.emptyUnderscores[k]=guess;
-                  }
-
-          document.getElementById("blank").innerHTML=o.emptyUnderscores.join("");
-          document.getElementById("incorrect").innerHTML=  o.incorrectGuesses.join("*");
-            console.log(o.incorrectGuesses);  
-            console.log(o.emptyUnderscores);
-            console.log(o.wordWork);
+          for (var j=0; j<o.wordWork.length; j++){ //we check to see if the guessed letter is in the generated word
+            if (o.wordWork[j]==guess) p++;
+            console.log("p value is: " + p);
           }
+
+          for (var k=0; k<o.incorrectGuesses.length; k++) { //we check to see if the guessed letter has been guessed before
+              if (o.incorrectGuesses[k]==guess) r++; 
+              console.log("this is r: " + r);}
+
+
+          if (p>0) { // then I want to change all underscores with the letter
           
-          else {
-            o.chances--;
-            o.incorrectGuesses.push(guess);
-          }  
+                  for (var i =0; i<o.wordWork.length; i++) {
+                    if (o.wordWork[i]==guess) {
+                      o.emptyUnderscores[i]=guess;
+                    }
+                  } 
+          }        
+          
+          else if (r==0) {
+                      o.chances -=1;
+                      o.incorrectGuesses.push(guess);
+                    }      
+      
+
+        document.getElementById("blank").innerHTML=o.emptyUnderscores.join("");
+            console.log(o.emptyUnderscores);
+        document.getElementById("incorrect").innerHTML=  o.incorrectGuesses.join("*");
+            console.log(o.incorrectGuesses);
+        document.getElementById("chances").innerHTML=o.chances;                
+
     } //closing thisIsGuess function
 
-    function check () {
+    o.check = function() {
 
-              console.log(o.generatedWord==o.emptyUnderscores.join(""));
                 
               if (o.generatedWord==o.emptyUnderscores.join("")) // if the letters guessed complete the generated word
                 {
                   o.wins++;
                   document.getElementById("wins").innerHTML=o.wins;
-                  alert ("winner");
-                  generateWord();
+                  alert ("You guessed it!");
+                  o.generateWord();
                 }
 
               else if (o.chances===0) {
                  document.getElementById("incorrect").innerHTML="";
-                 generateWord();
+                 alert("You lost!");
+                 o.generateWord();
               }
     }
 
-      generateWord();
+      o.generateWord();
       document.onkeypress= function(event) { //when player presses key, the game begins
         
           var guess=String.fromCharCode(event.keyCode).toLowerCase();
           document.getElementById("guess").innerHTML="Your guess is " + guess;
-          thisIsGuess();
-          check();
+          document.getElementById("incorrect").innerHTML="";
+          o.thisIsGuess(guess);
+          o.check();
 
       }
 
