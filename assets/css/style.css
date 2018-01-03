@@ -1,0 +1,54 @@
+
+.ctr {
+	text-align: center;
+}
+
+.row{
+	
+	background-color: #000000;
+}
+.bbg {
+	background-color: #000000;
+	padding: 20px;
+}
+.wbg {
+	background-color: #FFFFFF;
+}
+
+#up {
+	overflow:auto;
+	display: inline-block;
+	margin: 3px solid #876789;
+
+}
+
+footer {
+	background-color: black;
+	display: block;
+	text-align: center;
+	color: black;
+	font-size: 100%;
+	width: 100%;
+
+}
+
+.caption {
+	position: absolute;
+	top: 65%;
+	left: 10%;
+	text-align: center;
+}
+.captionft {
+	position: absolute;
+	top: 85%;
+	left: 10%;
+
+}
+.no-gutters{
+	margin: 0px;
+}
+
+body{
+	
+	
+}
