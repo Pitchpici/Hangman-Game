@@ -44,6 +44,9 @@ footer {
 	left: 10%;
 
 }
+#pics {
+	height: 300px;
+}
 .no-gutters{
 	margin: 0px;
 }

@@ -35,6 +35,7 @@
      
       console.log("this is goin to be in your HTML " + o.emptyUnderscores); 
       document.getElementById("blank").innerHTML=o.emptyUnderscores.join(" ");
+
         
     }  
 
@@ -83,14 +84,34 @@
                 {
                   o.wins++;
                   document.getElementById("wins").innerHTML=o.wins;
+                  switch (o.generatedWord) {
+                    case "judd": document.getElementById("pics").innerHTML= '<img src="assets/images/judd2.jpg" class="img-fluid">';
+                    break;
+                    case "mangold": document.getElementById("pics").innerHTML= '<img src="assets/images/mangold.jpg" class="img-fluid">';
+                    break;
+                    case "levitt": document.getElementById("pics").innerHTML= "<img src='assets/images/levitt.jpg' class='img-fluid'>";
+                    break;
+                    case "stella": document.getElementById("pics").innerHTML= '<img src="assets/images/stella.jpg" class="img-fluid">';
+                    break;
+                    case "schumann": document.getElementById("pics").innerHTML= '<img src="assets/images/schumann.jpg" class="img-fluid">';
+                    break;
+                    case "mccracken": document.getElementById("pics").innerHTML= '<img src="assets/images/mccracken.jpg" class="img-fluid">';
+                    break;
+                    case "sandback": document.getElementById("pics").innerHTML= '<img src="assets/images/sandback.jpg" class="img-fluid">';
+                    break;
+                    case "bell": document.getElementById("pics").innerHTML= '<img src="assets/images/bell.jpg" class="img-fluid">';
+                    break;
+                  }
                   alert ("You guessed it!");
                   o.generateWord();
+
                 }
 
               else if (o.chances===0) {
                  document.getElementById("incorrect").innerHTML="";
                  alert("You lost!");
                  o.generateWord();
+
               }
     }
 
@@ -100,6 +121,7 @@
           var guess=String.fromCharCode(event.keyCode).toLowerCase();
           document.getElementById("guess").innerHTML="Your guess is " + guess;
           document.getElementById("incorrect").innerHTML="";
+          document.getElementById("pics").innerHTML="";
           o.thisIsGuess(guess);
           o.check();
 
